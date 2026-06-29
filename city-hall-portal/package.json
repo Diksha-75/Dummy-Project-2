@@ -1,0 +1,35 @@
+{
+  "name": "city-hall-portal",
+  "version": "1.0.0",
+  "description": "Maplewood City Hall – Municipal Services Portal (React 16 legacy demo)",
+  "private": true,
+  "dependencies": {
+    "ajv": "^8.20.0",
+    "prop-types": "15.8.1",
+    "react": "16.14.0",
+    "react-dom": "16.14.0",
+    "react-router-dom": "5.3.4"
+  },
+  "devDependencies": {
+    "react-scripts": "5.0.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}
