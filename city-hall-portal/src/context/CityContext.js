@@ -2,8 +2,10 @@
 // LEGACY: Uses old React.createContext + Consumer pattern.
 // Migration target: modernize to useContext hook in functional components.
 
-import React from "react";
+import React, { createContext, useEffect, useState } from "react";
+import { api } from "../api/client";
 import { announcements, departments, services, permitStatuses } from "../data/cityData";
+
 
 const CityContext = React.createContext({
   announcements: [],

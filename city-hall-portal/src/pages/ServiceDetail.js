@@ -4,6 +4,7 @@
 import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { CityContext } from "../context/CityContext";
+import { api } from "../api/client";
 
 class ServiceDetail extends Component {
   constructor(props) {
@@ -46,21 +47,55 @@ class ServiceDetail extends Component {
     }));
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    const { formData } = this.state;
-    const errors = {};
-    if (!formData.name.trim()) errors.name = "Full name is required.";
-    if (!formData.email.trim() || !/\S+@\S+\.\S+/.test(formData.email)) errors.email = "Valid email required.";
-    if (!formData.address.trim()) errors.address = "Property or mailing address required.";
+  // handleSubmit(e) {
+  //   e.preventDefault();
+  //   const { formData } = this.state;
+  //   const errors = {};
+  //   if (!formData.name.trim()) errors.name = "Full name is required.";
+  //   if (!formData.email.trim() || !/\S+@\S+\.\S+/.test(formData.email)) errors.email = "Valid email required.";
+  //   if (!formData.address.trim()) errors.address = "Property or mailing address required.";
 
-    if (Object.keys(errors).length > 0) {
-      this.setState({ errors });
-      return;
-    }
-    // In a real app this would POST to an API
-    this.setState({ formSubmitted: true });
+  //   if (Object.keys(errors).length > 0) {
+  //     this.setState({ errors });
+  //     return;
+  //   }
+  //   // In a real app this would POST to an API
+  //   this.setState({ formSubmitted: true });
+  // }
+
+
+  async handleSubmit(e) {
+  e.preventDefault();
+
+  const { formData } = this.state;
+  const errors = {};
+
+  if (!formData.name.trim()) errors.name = "Full name is required.";
+  if (!formData.email.trim() || !/\S+@\S+\.\S+/.test(formData.email))
+    errors.email = "Valid email required.";
+  if (!formData.address.trim())
+    errors.address = "Property or mailing address required.";
+
+  if (Object.keys(errors).length > 0) {
+    this.setState({ errors });
+    return;
   }
+
+  const serviceId = this.props.match.params.id;
+
+  try {
+    const res = await api.applyService(serviceId, formData);
+
+    console.log("✅ Application Submitted Successfully:");
+    console.log("Service ID:", serviceId);
+    console.log("Form Data:", formData);
+    console.log("Backend Response:", res);
+
+    this.setState({ formSubmitted: true });
+  } catch (err) {
+    console.error("❌ Submission Failed:", err);
+  }
+}
 
   render() {
     const { formSubmitted, formData, errors } = this.state;
